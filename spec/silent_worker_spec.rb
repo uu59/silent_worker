@@ -29,6 +29,17 @@ describe SilentWorker do
     end
   end
 
+  describe "#abort" do
+    it "kill the worker threads" do
+      sleeping = 10
+      start = Time.now
+      sw = SilentWorker.new {|data| sleep sleeping }
+      sw << 1
+      sw.abort
+      expect{ Time.now - start < sleeping }.to be_true
+    end
+  end
+
   describe "#stop and #start" do
     let(:sw) { SilentWorker.new {|data| data } }
 
