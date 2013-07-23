@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = SilentWorker::VERSION
   spec.authors       = ["uu59"]
   spec.email         = ["k@uu59.org"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{SilentWorker gives simple worker thread model}
+  spec.summary       = %q{SilentWorker gives simple worker thread model}
   spec.homepage      = ""
   spec.license       = "MIT"
 

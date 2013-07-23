@@ -1,6 +1,6 @@
 # SilentWorker
 
-TODO: Write a gem description
+SilentWorker gives simple worker thread model.
 
 ## Installation
 
@@ -18,7 +18,54 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+sw = SilentWorker.new(2) do |data|
+  puts data
+  sleep 0.01
+end
+
+10.times |n|
+  sw << n
+end
+
+sw.wait
+
+# => 
+#  1
+#  0
+#  2
+#  3
+#  4
+#  5
+#  6
+#  7
+#  8
+#  9
+
+# NOTE: Order is a random
+```
+
+Real world example:
+
+```ruby
+parallel = 8
+
+sw = SilentWorker.new(parallel) do |url|
+  system("wget", url)
+end
+
+File.open('url_list.txt') do |f|
+  sw << f.gets.strip
+end
+
+File.open('url_list2.txt') do |f|
+  sw << f.gets.strip
+end
+
+sw.wait
+```
+
+This example will be 8 paralleled `wget` from `url_list.txt` and `url_list2.txt` such as `cat url_list.txt url_list2.txt | xargs -P8 -n1 wget`.
 
 ## Contributing
 
