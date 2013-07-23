@@ -70,6 +70,12 @@ sw.wait
 
 This example will be 8 paralleled `wget` from `url_list.txt` and `url_list2.txt` such as `cat url_list.txt url_list2.txt | xargs -P8 -n1 wget`.
 
+## See Also
+
+* [parallel](https://github.com/grosser/parallel)
+* [eventmachine](https://github.com/eventmachine/eventmachine)
+* [celluloid](https://github.com/celluloid/celluloid)
+
 ## Contributing
 
 1. Fork it
