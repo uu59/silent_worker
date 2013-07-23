@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/uu59/silent_worker.png)](https://travis-ci.org/uu59/silent_worker)
+[![Coverage Status](https://coveralls.io/repos/uu59/silent_worker/badge.png?branch=master)](https://coveralls.io/r/uu59/silent_worker?branch=master)
+
 # SilentWorker
 
 SilentWorker gives simple worker thread model.
