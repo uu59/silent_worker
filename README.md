@@ -57,12 +57,12 @@ sw = SilentWorker.new(parallel) do |url|
   system("wget", url)
 end
 
-File.open('url_list.txt') do |f|
-  sw << f.gets.strip
+File.open('url_list.txt').each_line do |line|
+  sw << line.strip
 end
 
-File.open('url_list2.txt') do |f|
-  sw << f.gets.strip
+File.open('url_list2.txt').each_line do |line|
+  sw << line.strip
 end
 
 sw.wait
