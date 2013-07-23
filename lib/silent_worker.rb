@@ -6,7 +6,7 @@ class SilentWorker
 
   FINISH_DATA = "\x04" # EOT
 
-  def initialize(workers = 32, &job)
+  def initialize(workers = 8, &job)
     @job = job
     @workers = workers
     @threads = []
