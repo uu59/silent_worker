@@ -21,24 +21,27 @@ class SilentWorker
 
   def wait
     finish!
-    @workers.times do
-      @queue.enq(FINISH_DATA)
-    end
-    @threads.each(&:join)
+    @threads.find_all(&:alive?).each(&:join)
   end
 
   def abort
     @threads.each(&:kill)
     wait
   end
+  alias :stop! :abort
 
   def stop
-    wait
+    finish!
   end
 
   def start
-    @workers.times do
-      @threads << Thread.start(@job, @queue) do |job, queue|
+    return if @working
+
+    @working = true
+    @finished = false
+    @workers.times do |n|
+      @threads << Thread.start(@job, @queue, n) do |job, queue, n|
+        Thread.current[:num] = n
         loop do
           data = queue.deq
           break if @finished && data == FINISH_DATA
@@ -51,7 +54,14 @@ class SilentWorker
   private
 
   def finish!
-    @finished = true
+    @working = false
+
+    unless @finished
+      @finished = true
+      @workers.times do
+        @queue.enq(FINISH_DATA)
+      end
+    end
   end
 
   def setup_signal_traps

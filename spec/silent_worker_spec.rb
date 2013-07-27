@@ -43,12 +43,13 @@ describe SilentWorker do
   describe "#stop and #start" do
     let(:sw) { SilentWorker.new {|data| data } }
 
-    after { sw.abort }
+    after { sw.abort; sw.queue.clear }
 
     it "jobs won't be fired when stopping workers" do
       sw << 1
       sw.stop
       sw << 2
+      sw.wait
       sw.queue.pop.should == 2
     end
 
@@ -57,7 +58,9 @@ describe SilentWorker do
       sw << 1
       sw.stop
       sw << 2
+      sw.wait
       sw.queue.length.should == 1
+
       sw.start
       sw.wait
       sw.queue.length.should == 0
