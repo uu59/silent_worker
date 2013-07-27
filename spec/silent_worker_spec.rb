@@ -63,4 +63,29 @@ describe SilentWorker do
       sw.queue.length.should == 0
     end
   end
+
+  describe "Signal trapping" do
+    context "should abort" do
+      before do
+        sw = SilentWorker.new { sleep 10 }
+        sw.should_receive(:abort)
+        sw << nil
+      end
+
+      it "INT" do
+        Process.kill("INT", $$)
+      end
+
+      it "TERM" do
+        Process.kill("TERM", $$)
+      end
+
+      it "QUIT" do
+        Process.kill("TERM", $$)
+      end
+
+      it "EXIT", :pending => "How to test this?" do
+      end
+    end
+  end
 end

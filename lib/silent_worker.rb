@@ -11,6 +11,7 @@ class SilentWorker
     @workers = workers
     @threads = []
     @queue = Queue.new
+    setup_signal_traps
     start
   end
 
@@ -51,6 +52,19 @@ class SilentWorker
 
   def finish!
     @finished = true
+  end
+
+  def setup_signal_traps
+    Signal.trap("INT") { abort }
+    Signal.trap("TERM") { abort }
+    Signal.trap("QUIT") { abort }
+
+    # Maybe forgotten to call #wait
+    Signal.trap("EXIT") do
+      return if @finished
+      warn "\nWARNING: You should call SilentWorker#wait to wait jobs are completed. Now abort them.\n"
+      abort
+    end
   end
 
 end
