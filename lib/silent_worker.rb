@@ -16,13 +16,13 @@ class SilentWorker
   end
 
   def <<(data)
-    @queue.push(data)
+    @queue.enq(data)
   end
 
   def wait
     finish!
     @workers.times do
-      @queue.push(FINISH_DATA)
+      @queue.enq(FINISH_DATA)
     end
     @threads.each(&:join)
   end
@@ -40,7 +40,7 @@ class SilentWorker
     @workers.times do
       @threads << Thread.start(@job, @queue) do |job, queue|
         loop do
-          data = queue.pop
+          data = queue.deq
           break if @finished && data == FINISH_DATA
           job.call(data)
         end
