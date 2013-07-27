@@ -84,7 +84,7 @@ describe SilentWorker do
       end
 
       it "QUIT" do
-        Process.kill("TERM", $$)
+        Process.kill("QUIT", $$)
       end
 
       it "EXIT", :pending => "How to test this?" do
