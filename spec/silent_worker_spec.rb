@@ -72,7 +72,7 @@ describe SilentWorker do
       before do
         sw = SilentWorker.new { sleep 10 }
         sw.should_receive(:abort)
-        sw << nil
+        sleep 0.1 if ENV["TRAVIS_CI"]
       end
 
       it "INT" do
