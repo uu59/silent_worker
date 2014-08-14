@@ -1,5 +1,7 @@
-[![Build Status](https://travis-ci.org/uu59/silent_worker.png)](https://travis-ci.org/uu59/silent_worker)
+[![Build Status](https://travis-ci.org/uu59/silent_worker.svg)](https://travis-ci.org/uu59/silent_worker)
 [![Coverage Status](https://coveralls.io/repos/uu59/silent_worker/badge.png?branch=master)](https://coveralls.io/r/uu59/silent_worker?branch=master)
+[![Gem Version](https://badge.fury.io/rb/silent_worker.svg)](http://badge.fury.io/rb/silent_worker)
+[![Code Climate](https://codeclimate.com/github/uu59/silent_worker/badges/gpa.svg)](https://codeclimate.com/github/uu59/silent_worker)
 
 # SilentWorker
 
